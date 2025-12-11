@@ -9,6 +9,11 @@ class HomePage extends StatelessWidget {
     return "Jhonny";
   }
 
+  Future<String> tarea1() async {
+    await Future.delayed(Duration(seconds: 2));
+    return "Tarea 1 completada";
+  }
+
   Future<int> dividir(int a, int b) async {
     if (b == 0) {
       throw Exception("No se puede dividir entre cero");
@@ -43,6 +48,22 @@ class HomePage extends StatelessWidget {
                 }
               },
               child: Text("Manejo de errores"),
+            ),
+
+            ElevatedButton(
+              onPressed: () async {
+                print("Ejcutando tareas en paralelo......");
+
+                final resultados = await Future.wait([
+                  tarea1(),
+                  obtenerNombre(),
+                ]);
+
+                print("---------------------------------------");
+                print(resultados);
+                print("---------------------------------------");
+              },
+              child: Text("Futures en paralelo"),
             ),
           ],
         ),
